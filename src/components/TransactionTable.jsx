@@ -1,23 +1,54 @@
 import React, { useMemo } from 'react';
 import { Table } from '../styles';
 
-const TransactionTable = ({ transactions, selectedMonth, currentPage }) => {
-  const filteredTransactions = useMemo(() => {
-    return transactions.filter(
-      (txn) =>
-        !selectedMonth ||
-        new Date(txn.date).toLocaleString('default', { month: 'long' }) ===
-          selectedMonth
-    );
-  }, [transactions, selectedMonth]);
+const TransactionTable = ({
+  transactions,
+  selectedMonth,
+  selectedYear,
+  currentPage,
+}) => {
+  const isInLastThreeMonths = (date) => {
+    const now = new Date();
+    const threeMonthsAgo = new Date();
+    threeMonthsAgo.setMonth(now.getMonth() - 3);
+    return date >= threeMonthsAgo && date <= now;
+  };
 
+  const filteredTransactions = useMemo(() => {
+    return transactions.filter((txn) => {
+      const txnDate = new Date(txn.date);
+      let monthMatch = false;
+      if (selectedMonth === 'last3') {
+        monthMatch = isInLastThreeMonths(txnDate);
+      } else {
+        monthMatch =
+          txnDate.toLocaleString('default', { month: 'long' }) ===
+          selectedMonth;
+      }
+      const yearMatch = selectedYear
+        ? txnDate.getFullYear().toString() === selectedYear
+        : true;
+      return monthMatch && yearMatch;
+    });
+  }, [transactions, selectedMonth, selectedYear]);
+
+  const sortedTransactions = useMemo(() => {
+    return [...filteredTransactions].sort(
+      (a, b) => new Date(b.date) - new Date(a.date)
+    );
+  }, [filteredTransactions]);
+
+  const transactionsPerPage = 5;
   const paginatedTransactions = useMemo(() => {
-    const transactionsPerPage = 5;
-    return filteredTransactions.slice(
+    return sortedTransactions.slice(
       (currentPage - 1) * transactionsPerPage,
       currentPage * transactionsPerPage
     );
-  }, [filteredTransactions, currentPage]);
+  }, [sortedTransactions, currentPage]);
+
+  if (sortedTransactions.length === 0) {
+    return <p>No transaction</p>;
+  }
 
   return (
     <Table>
