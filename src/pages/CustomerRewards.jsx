@@ -1,9 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import useFetchTransactions from '../hooks/useFetchTransactions';
-import RewardsTable from '../components/RewardsTable';
-import TransactionTable from '../components/TransactionTable';
+import RewardsTable from '../components/rewardsTable';
+import TransactionTable from '../components/transactionTable';
 import Pagination from '../components/Pagination';
+import { HEADINGS, DROPDOWN_OPTIONS, MESSAGES } from '../constants';
 
 const CustomerRewards = () => {
   const { customerId } = useParams();
@@ -16,37 +17,25 @@ const CustomerRewards = () => {
     return data.filter((txn) => txn.customerId.toString() === customerId);
   }, [data, customerId]);
 
-  const monthOptions = useMemo(() => {
-    return [
-      'last3',
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-  }, []);
+  const monthOptions = DROPDOWN_OPTIONS.months;
+  const yearOptions = DROPDOWN_OPTIONS.years;
 
-  const yearOptions = useMemo(() => {
-    return ['2024', '2025'];
-  }, []);
-
-  if (loading) return <p>Loading transactions...</p>;
-  if (error) return <p>Error loading data: {error}</p>;
+  if (loading) return <p>{MESSAGES.loading}</p>;
+  if (error)
+    return (
+      <p>
+        {MESSAGES.error} {error}
+      </p>
+    );
 
   return (
     <div>
-      <h2>Customer {customerId} Rewards</h2>
+      <h2>
+        Customer {customerId} {HEADINGS.customerRewards}
+      </h2>
       <RewardsTable transactions={customerTransactions} />
 
-      <h3>Filter by Month and Year</h3>
+      <h3>{HEADINGS.filterByMonthYear}</h3>
       <div>
         <label>
           Month:{' '}
@@ -59,7 +48,7 @@ const CustomerRewards = () => {
           >
             {monthOptions.map((month) => (
               <option key={month} value={month}>
-                {month === 'last3' ? 'Last 3 Months' : month}
+                {month === 'last3' ? DROPDOWN_OPTIONS.monthLabels.last3 : month}
               </option>
             ))}
           </select>

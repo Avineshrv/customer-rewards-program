@@ -2,7 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useFetchTransactions from '../hooks/useFetchTransactions';
 import { Table } from '../styles';
-import Pagination from '../components/Pagination';
+import Pagination from '../components/pagination';
+import { HEADINGS, MESSAGES } from '../constants';
 
 const Dashboard = () => {
   const { data, loading, error } = useFetchTransactions();
@@ -21,12 +22,17 @@ const Dashboard = () => {
     return uniqueCustomers.slice(startIndex, startIndex + customersPerPage);
   }, [uniqueCustomers, currentPage]);
 
-  if (loading) return <p>Loading transactions...</p>;
-  if (error) return <p>Error loading data: {error}</p>;
+  if (loading) return <p>{MESSAGES.loading}</p>;
+  if (error)
+    return (
+      <p>
+        {MESSAGES.error} {error}
+      </p>
+    );
 
   return (
     <div className="flex">
-      <h2>Customers</h2>
+      <h2>{HEADINGS.customers}</h2>
       <Table>
         <thead>
           <tr>

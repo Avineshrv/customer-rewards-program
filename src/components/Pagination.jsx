@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { PAGINATION_TEXT } from '../constants';
 
 const PaginationContainer = styled.div`
   display: flex;
@@ -29,22 +31,27 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
       >
-        Prev
+        {PAGINATION_TEXT.prev}
       </PageButton>
 
       <span>
-        {' '}
-        Page {currentPage} of {totalPages}{' '}
+        Page {currentPage} of {totalPages}
       </span>
 
       <PageButton
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
       >
-        Next
+        {PAGINATION_TEXT.next}
       </PageButton>
     </PaginationContainer>
   );
+};
+
+Pagination.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
 };
 
 export default Pagination;

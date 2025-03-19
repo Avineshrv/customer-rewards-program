@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Dashboard from './pages/Dashboard';
-import CustomerRewards from './pages/CustomerRewards';
+import Dashboard from './pages/dashboard';
+import CustomerRewards from './pages/customerRewards';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const App = () => {

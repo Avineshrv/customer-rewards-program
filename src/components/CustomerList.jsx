@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { Table } from '../styles';
 
@@ -34,6 +35,18 @@ const CustomerList = ({ transactions }) => {
       </Table>
     </div>
   );
+};
+
+CustomerList.propTypes = {
+  transactions: PropTypes.arrayOf(
+    PropTypes.shape({
+      customerId: PropTypes.number.isRequired,
+      transactionId: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+        .isRequired,
+      amount: PropTypes.number.isRequired,
+      date: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default CustomerList;

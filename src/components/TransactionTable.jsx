@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
 import { Table } from '../styles';
+import PropTypes from 'prop-types';
+import { MESSAGES } from '../constants';
 
 const TransactionTable = ({
   transactions,
@@ -47,7 +49,7 @@ const TransactionTable = ({
   }, [sortedTransactions, currentPage]);
 
   if (sortedTransactions.length === 0) {
-    return <p>No transaction</p>;
+    return <p>{MESSAGES.noTransaction}</p>;
   }
 
   return (
@@ -70,6 +72,20 @@ const TransactionTable = ({
       </tbody>
     </Table>
   );
+};
+
+TransactionTable.propTypes = {
+  transactions: PropTypes.arrayOf(
+    PropTypes.shape({
+      customerId: PropTypes.number.isRequired,
+      transactionId: PropTypes.number.isRequired,
+      amount: PropTypes.number.isRequired,
+      date: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  selectedMonth: PropTypes.string.isRequired,
+  selectedYear: PropTypes.string.isRequired,
+  currentPage: PropTypes.number.isRequired,
 };
 
 export default TransactionTable;

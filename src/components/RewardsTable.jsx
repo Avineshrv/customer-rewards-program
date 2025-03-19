@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { calculateRewards } from '../utils/calculations';
 import { Table } from '../styles';
 
@@ -45,6 +46,18 @@ const RewardsTable = ({ transactions }) => {
       </Table>
     </div>
   );
+};
+
+RewardsTable.propTypes = {
+  transactions: PropTypes.arrayOf(
+    PropTypes.shape({
+      customerId: PropTypes.number.isRequired,
+      transactionId: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+        .isRequired,
+      amount: PropTypes.number.isRequired,
+      date: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default RewardsTable;

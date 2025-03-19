@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { fetchTransactions } from '../services/api';
+import { fetchTransactions } from './api';
 
 const useFetchTransactions = () => {
   const [data, setData] = useState([]);
