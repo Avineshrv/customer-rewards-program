@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import useFetchTransactions from '../hooks/useFetchTransactions';
 import RewardsTable from '../components/RewardsTable';
@@ -11,20 +11,22 @@ const CustomerRewards = () => {
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const customerTransactions = useMemo(() => {
+    return data.filter((txn) => txn.customerId.toString() === customerId);
+  }, [data, customerId]);
+
+  const months = useMemo(() => {
+    return [
+      ...new Set(
+        customerTransactions.map((txn) =>
+          new Date(txn.date).toLocaleString('default', { month: 'long' })
+        )
+      ),
+    ];
+  }, [customerTransactions]);
+
   if (loading) return <p>Loading transactions...</p>;
   if (error) return <p>Error loading data: {error}</p>;
-
-  const customerTransactions = data.filter(
-    (txn) => txn.customerId.toString() === customerId
-  );
-
-  const months = [
-    ...new Set(
-      customerTransactions.map((txn) =>
-        new Date(txn.date).toLocaleString('default', { month: 'long' })
-      )
-    ),
-  ];
 
   return (
     <div>

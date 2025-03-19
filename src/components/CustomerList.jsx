@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Table } from '../styles';
 
 const CustomerList = ({ transactions }) => {
   const navigate = useNavigate();
 
-  const uniqueCustomers = [
-    ...new Set(transactions.map((txn) => txn.customerId)),
-  ];
+  const uniqueCustomers = useMemo(() => {
+    return [...new Set(transactions.map((txn) => txn.customerId))];
+  }, [transactions]);
 
   return (
     <div>

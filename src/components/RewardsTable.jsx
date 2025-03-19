@@ -1,21 +1,23 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { calculateRewards } from '../utils/calculations';
 import { Table } from '../styles';
 
 const RewardsTable = ({ transactions }) => {
-  const rewardsData = transactions.reduce((acc, txn) => {
-    const { customerId, amount, date } = txn;
-    const month = new Date(date).toLocaleString('default', { month: 'long' });
+  const rewardsData = useMemo(() => {
+    return transactions.reduce((acc, txn) => {
+      const { customerId, amount, date } = txn;
+      const month = new Date(date).toLocaleString('default', { month: 'long' });
 
-    if (!acc[customerId]) acc[customerId] = {};
-    if (!acc[customerId][month])
-      acc[customerId][month] = { total: 0, points: 0 };
+      if (!acc[customerId]) acc[customerId] = {};
+      if (!acc[customerId][month])
+        acc[customerId][month] = { total: 0, points: 0 };
 
-    acc[customerId][month].total += amount;
-    acc[customerId][month].points += calculateRewards(amount);
+      acc[customerId][month].total += amount;
+      acc[customerId][month].points += calculateRewards(amount);
 
-    return acc;
-  }, {});
+      return acc;
+    }, {});
+  }, [transactions]);
 
   return (
     <div>

@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Table } from '../styles';
 
 const TransactionTable = ({ transactions, selectedMonth, currentPage }) => {
-  const filteredTransactions = transactions.filter(
-    (txn) =>
-      !selectedMonth ||
-      new Date(txn.date).toLocaleString('default', { month: 'long' }) ===
-        selectedMonth
-  );
+  const filteredTransactions = useMemo(() => {
+    return transactions.filter(
+      (txn) =>
+        !selectedMonth ||
+        new Date(txn.date).toLocaleString('default', { month: 'long' }) ===
+          selectedMonth
+    );
+  }, [transactions, selectedMonth]);
 
-  const transactionsPerPage = 5;
-  const paginatedTransactions = filteredTransactions.slice(
-    (currentPage - 1) * transactionsPerPage,
-    currentPage * transactionsPerPage
-  );
+  const paginatedTransactions = useMemo(() => {
+    const transactionsPerPage = 5;
+    return filteredTransactions.slice(
+      (currentPage - 1) * transactionsPerPage,
+      currentPage * transactionsPerPage
+    );
+  }, [filteredTransactions, currentPage]);
 
   return (
     <Table>
