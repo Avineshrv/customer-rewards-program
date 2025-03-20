@@ -1,9 +1,30 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useFetchTransactions from '../hooks/useFetchTransactions';
-import { Table } from '../styles';
-import Pagination from '../components/pagination';
+import { Table, PageContainer } from '../styles';
+import Pagination from '../components/Pagination';
 import { HEADINGS, MESSAGES } from '../constants';
+import styled from 'styled-components';
+
+const ViewButton = styled.button`
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--primary-hover);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 3px var(--primary-color);
+  }
+`;
 
 const Dashboard = () => {
   const { data, loading, error } = useFetchTransactions();
@@ -31,7 +52,7 @@ const Dashboard = () => {
     );
 
   return (
-    <div className="flex">
+    <PageContainer>
       <h2>{HEADINGS.customers}</h2>
       <Table>
         <thead>
@@ -45,9 +66,9 @@ const Dashboard = () => {
             <tr key={customerId}>
               <td>{customerId}</td>
               <td>
-                <button onClick={() => navigate(`/rewards/${customerId}`)}>
+                <ViewButton onClick={() => navigate(`/rewards/${customerId}`)}>
                   View
-                </button>
+                </ViewButton>
               </td>
             </tr>
           ))}
@@ -58,7 +79,7 @@ const Dashboard = () => {
         totalPages={totalPages}
         onPageChange={setCurrentPage}
       />
-    </div>
+    </PageContainer>
   );
 };
 

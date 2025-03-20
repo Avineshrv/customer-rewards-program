@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { calculateRewards } from '../utils/calculations';
-import { Table } from '../styles';
+import { Table, TableWrapper } from '../styles';
 
 const RewardsTable = ({ transactions }) => {
   const rewardsData = useMemo(() => {
@@ -22,28 +22,30 @@ const RewardsTable = ({ transactions }) => {
 
   return (
     <div>
-      <Table>
-        <thead>
-          <tr>
-            <th>Customer ID</th>
-            <th>Month</th>
-            <th>Total Spent</th>
-            <th>Points Earned</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Object.keys(rewardsData).map((customer) =>
-            Object.keys(rewardsData[customer]).map((month) => (
-              <tr key={`${customer}-${month}`}>
-                <td>{customer}</td>
-                <td>{month}</td>
-                <td>${rewardsData[customer][month].total.toFixed(2)}</td>
-                <td>{rewardsData[customer][month].points}</td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </Table>
+      <TableWrapper>
+        <Table>
+          <thead>
+            <tr>
+              <th>Customer ID</th>
+              <th>Month</th>
+              <th>Total Spent</th>
+              <th>Points Earned</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.keys(rewardsData).map((customer) =>
+              Object.keys(rewardsData[customer]).map((month) => (
+                <tr key={`${customer}-${month}`}>
+                  <td>{customer}</td>
+                  <td>{month}</td>
+                  <td>${rewardsData[customer][month].total.toFixed(2)}</td>
+                  <td>{rewardsData[customer][month].points}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </Table>
+      </TableWrapper>
     </div>
   );
 };

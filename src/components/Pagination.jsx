@@ -11,16 +11,23 @@ const PaginationContainer = styled.div`
 `;
 
 const PageButton = styled.button`
-  padding: 8px 12px;
-  margin: 0 5px;
+  background-color: var(--primary-color);
+  color: #fff;
   border: none;
-  background-color: ${(props) => (props.disabled ? '#ccc' : '#007bff')};
-  color: white;
-  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
-  border-radius: 5px;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin: 0 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: ${(props) => (props.disabled ? '#ccc' : '#0056b3')};
+    background-color: var(--primary-hover);
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
   }
 `;
 

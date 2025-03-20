@@ -1,13 +1,38 @@
 import React, { useState, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import useFetchTransactions from '../hooks/useFetchTransactions';
 import RewardsTable from '../components/rewardsTable';
 import TransactionTable from '../components/transactionTable';
 import Pagination from '../components/Pagination';
 import { HEADINGS, DROPDOWN_OPTIONS, MESSAGES } from '../constants';
+import { PageContainer, FilterLabel, FilterSelect } from '../styles';
+import styled from 'styled-components';
+
+const BackButton = styled.button`
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  margin: 16px auto 16px auto;
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--primary-hover);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 3px var(--primary-color);
+  }
+`;
 
 const CustomerRewards = () => {
   const { customerId } = useParams();
+  const navigate = useNavigate();
   const { data, loading, error } = useFetchTransactions();
   const [selectedMonth, setSelectedMonth] = useState('last3');
   const [selectedYear, setSelectedYear] = useState('2025');
@@ -29,7 +54,10 @@ const CustomerRewards = () => {
     );
 
   return (
-    <div>
+    <PageContainer>
+      <BackButton onClick={() => navigate('/')}>
+        &#11164;&#11164; Back
+      </BackButton>
       <h2>
         Customer {customerId} {HEADINGS.customerRewards}
       </h2>
@@ -37,9 +65,9 @@ const CustomerRewards = () => {
 
       <h3>{HEADINGS.filterByMonthYear}</h3>
       <div>
-        <label>
+        <FilterLabel>
           Month:{' '}
-          <select
+          <FilterSelect
             value={selectedMonth}
             onChange={(e) => {
               setSelectedMonth(e.target.value);
@@ -51,11 +79,12 @@ const CustomerRewards = () => {
                 {month === 'last3' ? DROPDOWN_OPTIONS.monthLabels.last3 : month}
               </option>
             ))}
-          </select>
-        </label>
-        <label style={{ marginLeft: '1rem' }}>
+          </FilterSelect>
+        </FilterLabel>
+
+        <FilterLabel>
           Year:{' '}
-          <select
+          <FilterSelect
             value={selectedYear}
             onChange={(e) => {
               setSelectedYear(e.target.value);
@@ -67,8 +96,8 @@ const CustomerRewards = () => {
                 {year}
               </option>
             ))}
-          </select>
-        </label>
+          </FilterSelect>
+        </FilterLabel>
       </div>
 
       <TransactionTable
@@ -83,7 +112,7 @@ const CustomerRewards = () => {
         totalPages={3}
         onPageChange={setCurrentPage}
       />
-    </div>
+    </PageContainer>
   );
 };
 

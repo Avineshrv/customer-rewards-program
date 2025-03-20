@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Table } from '../styles';
 import PropTypes from 'prop-types';
 import { MESSAGES } from '../constants';
+import { calculateRewards } from '../utils/calculations';
 
 const TransactionTable = ({
   transactions,
@@ -59,6 +60,7 @@ const TransactionTable = ({
           <th>Transaction ID</th>
           <th>Amount</th>
           <th>Date</th>
+          <th>Points Earned</th>
         </tr>
       </thead>
       <tbody>
@@ -67,6 +69,7 @@ const TransactionTable = ({
             <td>{txn.transactionId}</td>
             <td>${txn.amount.toFixed(2)}</td>
             <td>{txn.date}</td>
+            <td>{calculateRewards(txn.amount)}</td>
           </tr>
         ))}
       </tbody>
@@ -78,7 +81,8 @@ TransactionTable.propTypes = {
   transactions: PropTypes.arrayOf(
     PropTypes.shape({
       customerId: PropTypes.number.isRequired,
-      transactionId: PropTypes.number.isRequired,
+      transactionId: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+        .isRequired,
       amount: PropTypes.number.isRequired,
       date: PropTypes.string.isRequired,
     })
