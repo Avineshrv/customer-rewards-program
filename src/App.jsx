@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Dashboard from './pages/customersDashboard';
+import Dashboard from './pages/customerDashboard';
 import CustomerRewards from './pages/customerReward';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
