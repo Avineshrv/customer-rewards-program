@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { calculateRewards } from '../utils/calculations';
 import { Table, TableWrapper } from '../styles';
+import { TABLE_HEADERS } from '../constants';
 
 const RewardsTable = ({ transactions }) => {
   const rewardsData = useMemo(() => {
@@ -26,10 +27,10 @@ const RewardsTable = ({ transactions }) => {
         <Table>
           <thead>
             <tr>
-              <th>Customer ID</th>
-              <th>Month</th>
-              <th>Total Spent</th>
-              <th>Points Earned</th>
+              <th>{TABLE_HEADERS.rewards.customerId}</th>
+              <th>{TABLE_HEADERS.rewards.month}</th>
+              <th>{TABLE_HEADERS.rewards.totalSpent}</th>
+              <th>{TABLE_HEADERS.rewards.pointsEarned}</th>
             </tr>
           </thead>
           <tbody>

@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useFetchTransactions from '../hooks/useFetchTransactions';
-import { Table, PageContainer } from '../styles';
+import { Table, PageContainer, TableWrapper } from '../styles';
 import Pagination from '../components/tablePagination';
-import { HEADINGS, MESSAGES } from '../constants';
+import { BUTTON_TEXT, HEADINGS, MESSAGES, TABLE_HEADERS } from '../constants';
 import styled from 'styled-components';
 
 const ViewButton = styled.button`
@@ -54,26 +54,30 @@ const Dashboard = () => {
   return (
     <PageContainer>
       <h2>{HEADINGS.customers}</h2>
-      <Table>
-        <thead>
-          <tr>
-            <th>Customer ID</th>
-            <th>View Rewards</th>
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedCustomers.map((customerId) => (
-            <tr key={customerId}>
-              <td>{customerId}</td>
-              <td>
-                <ViewButton onClick={() => navigate(`/rewards/${customerId}`)}>
-                  View
-                </ViewButton>
-              </td>
+      <TableWrapper>
+        <Table>
+          <thead>
+            <tr>
+              <th>{TABLE_HEADERS.dashboard.customerId}</th>
+              <th>{TABLE_HEADERS.dashboard.viewRewards}</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {paginatedCustomers.map((customerId) => (
+              <tr key={customerId}>
+                <td>{customerId}</td>
+                <td>
+                  <ViewButton
+                    onClick={() => navigate(`/rewards/${customerId}`)}
+                  >
+                    {BUTTON_TEXT.view}
+                  </ViewButton>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </TableWrapper>
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}

@@ -4,7 +4,12 @@ import useFetchTransactions from '../hooks/useFetchTransactions';
 import RewardsTable from '../components/rewardTable';
 import TransactionTable from '../components/transactionsTable';
 import Pagination from '../components/tablePagination';
-import { HEADINGS, DROPDOWN_OPTIONS, MESSAGES } from '../constants';
+import {
+  HEADINGS,
+  DROPDOWN_OPTIONS,
+  MESSAGES,
+  BUTTON_TEXT,
+} from '../constants';
 import { PageContainer, FilterLabel, FilterSelect } from '../styles';
 import styled from 'styled-components';
 
@@ -56,7 +61,7 @@ const CustomerRewards = () => {
   return (
     <PageContainer>
       <BackButton onClick={() => navigate('/')}>
-        &#11164;&#11164; Customer Rewards Dashboard
+        &#11164;&#11164; {BUTTON_TEXT.back}
       </BackButton>
       <h2>
         Customer {customerId} {HEADINGS.customerRewards}
@@ -66,7 +71,7 @@ const CustomerRewards = () => {
       <h3>
         Customer {customerId} {HEADINGS.filterByMonthYear}
       </h3>
-      <div>
+      <div className='filters'>
         <FilterLabel>
           Month:{' '}
           <FilterSelect

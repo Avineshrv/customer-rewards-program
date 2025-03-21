@@ -36,3 +36,27 @@ export const PAGINATION_TEXT = {
   prev: 'Prev',
   next: 'Next',
 };
+
+export const TABLE_HEADERS = {
+  dashboard: {
+    customerId: 'Customer ID',
+    viewRewards: 'View Rewards',
+  },
+  transaction: {
+    transactionId: 'Transaction ID',
+    amount: 'Amount',
+    date: 'Date',
+    pointsEarned: 'Points Earned',
+  },
+  rewards: {
+    customerId: 'Customer ID',
+    month: 'Month',
+    totalSpent: 'Total Spent',
+    pointsEarned: 'Points Earned',
+  },
+};
+
+export const BUTTON_TEXT = {
+  back: 'Customer Rewards Dashboard',
+  view: 'View',
+};

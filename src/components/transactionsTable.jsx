@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
-import { Table } from '../styles';
+import { Table, TableWrapper } from '../styles';
 import PropTypes from 'prop-types';
-import { MESSAGES } from '../constants';
+import { MESSAGES, TABLE_HEADERS } from '../constants';
 import { calculateRewards } from '../utils/calculations';
 
 const TransactionTable = ({
@@ -54,26 +54,28 @@ const TransactionTable = ({
   }
 
   return (
-    <Table>
-      <thead>
-        <tr>
-          <th>Transaction ID</th>
-          <th>Amount</th>
-          <th>Date</th>
-          <th>Points Earned</th>
-        </tr>
-      </thead>
-      <tbody>
-        {paginatedTransactions.map((txn) => (
-          <tr key={txn.transactionId}>
-            <td>{txn.transactionId}</td>
-            <td>${txn.amount.toFixed(2)}</td>
-            <td>{txn.date}</td>
-            <td>{calculateRewards(txn.amount)}</td>
+    <TableWrapper>
+      <Table>
+        <thead>
+          <tr>
+            <th>{TABLE_HEADERS.transaction.transactionId}</th>
+            <th>{TABLE_HEADERS.transaction.amount}</th>
+            <th>{TABLE_HEADERS.transaction.date}</th>
+            <th>{TABLE_HEADERS.transaction.pointsEarned}</th>
           </tr>
-        ))}
-      </tbody>
-    </Table>
+        </thead>
+        <tbody>
+          {paginatedTransactions.map((txn) => (
+            <tr key={txn.transactionId}>
+              <td>{txn.transactionId}</td>
+              <td>${txn.amount.toFixed(2)}</td>
+              <td>{txn.date}</td>
+              <td>{calculateRewards(txn.amount)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </TableWrapper>
   );
 };
 
