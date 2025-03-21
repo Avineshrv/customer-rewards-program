@@ -56,14 +56,16 @@ const CustomerRewards = () => {
   return (
     <PageContainer>
       <BackButton onClick={() => navigate('/')}>
-        &#11164;&#11164; Back
+        &#11164;&#11164; Customer Rewards Dashboard
       </BackButton>
       <h2>
         Customer {customerId} {HEADINGS.customerRewards}
       </h2>
       <RewardsTable transactions={customerTransactions} />
 
-      <h3>{HEADINGS.filterByMonthYear}</h3>
+      <h3>
+        Customer {customerId} {HEADINGS.filterByMonthYear}
+      </h3>
       <div>
         <FilterLabel>
           Month:{' '}

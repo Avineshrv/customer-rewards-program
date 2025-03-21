@@ -1,7 +1,7 @@
 export const HEADINGS = {
-  customers: 'Customers',
-  customerRewards: 'Rewards',
-  filterByMonthYear: 'Filter by Month and Year',
+  customers: 'Customer Rewards Dashboard',
+  customerRewards: 'Rewards Summary',
+  filterByMonthYear: 'Transaction Details',
 };
 
 export const DROPDOWN_OPTIONS = {
