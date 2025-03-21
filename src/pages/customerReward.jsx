@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import useFetchTransactions from '../hooks/useFetchTransactions';
-import RewardsTable from '../components/rewardsTable';
-import TransactionTable from '../components/transactionTable';
-import Pagination from '../components/Pagination';
+import RewardsTable from '../components/rewardTable';
+import TransactionTable from '../components/transactionsTable';
+import Pagination from '../components/tablePagination';
 import { HEADINGS, DROPDOWN_OPTIONS, MESSAGES } from '../constants';
 import { PageContainer, FilterLabel, FilterSelect } from '../styles';
 import styled from 'styled-components';

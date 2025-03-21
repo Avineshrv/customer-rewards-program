@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useFetchTransactions from '../hooks/useFetchTransactions';
 import { Table, PageContainer } from '../styles';
-import Pagination from '../components/Pagination';
+import Pagination from '../components/tablePagination';
 import { HEADINGS, MESSAGES } from '../constants';
 import styled from 'styled-components';
 
