@@ -60,39 +60,11 @@ npm run dev
 
 ---
 
-## API Details
-
-The application simulates fetching transactions using an asynchronous API.
-
-### **Sample API Response (`api.js`)**
-
-```json
-[
-  {
-    "customerId": 1,
-    "transactionId": "T1",
-    "amount": 120,
-    "date": "2025-01-15"
-  },
-  {
-    "customerId": 1,
-    "transactionId": "T2",
-    "amount": 75,
-    "date": "2025-02-10"
-  },
-  {
-    "customerId": 2,
-    "transactionId": "T3",
-    "amount": 200,
-    "date": "2025-01-20"
-  },
-  ...
-]
-```
-
----
-
 ## Screenshots
 
 ![Customer List Screenshot](./screenshots/customer_list.png)
 ![Rewards Page Screenshot](./screenshots/rewards_page.png)
+
+## Test Case
+
+![Test Case Screenshot](./screenshots/test_completion.png)
