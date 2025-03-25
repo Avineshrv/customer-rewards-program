@@ -67,6 +67,11 @@ npm test
 
 ---
 
+## Deployment
+
+The application has been deployed on Vercel. You can view the live application here:
+https://customer-rewards-program.vercel.app/
+
 ## Screenshots
 
 ![Customer List Screenshot](./screenshots/customer_list.png)
