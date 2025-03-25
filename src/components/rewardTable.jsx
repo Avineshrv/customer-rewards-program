@@ -22,7 +22,7 @@ const RewardsTable = ({ transactions }) => {
   }, [transactions]);
 
   return (
-    <div>
+    <>
       <TableWrapper>
         <Table>
           <thead>
@@ -47,7 +47,7 @@ const RewardsTable = ({ transactions }) => {
           </tbody>
         </Table>
       </TableWrapper>
-    </div>
+    </>
   );
 };
 

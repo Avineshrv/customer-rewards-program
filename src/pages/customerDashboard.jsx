@@ -8,6 +8,7 @@ import {
   HEADINGS,
   MESSAGES,
   TABLE_HEADERS,
+  CUSTOMER_PER_PAGE,
 } from '../utils/constants';
 import styled from 'styled-components';
 
@@ -35,7 +36,6 @@ const Dashboard = () => {
   const { data, loading, error } = useFetchTransactions();
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
-  const customersPerPage = 5;
 
   const uniqueCustomers = useMemo(() => {
     const customerMap = {};
@@ -50,11 +50,11 @@ const Dashboard = () => {
     return Object.values(customerMap);
   }, [data]);
 
-  const totalPages = Math.ceil(uniqueCustomers.length / customersPerPage);
+  const totalPages = Math.ceil(uniqueCustomers.length / CUSTOMER_PER_PAGE);
 
   const paginatedCustomers = useMemo(() => {
-    const startIndex = (currentPage - 1) * customersPerPage;
-    return uniqueCustomers.slice(startIndex, startIndex + customersPerPage);
+    const startIndex = (currentPage - 1) * CUSTOMER_PER_PAGE;
+    return uniqueCustomers.slice(startIndex, startIndex + CUSTOMER_PER_PAGE);
   }, [uniqueCustomers, currentPage]);
 
   if (loading) return <p>{MESSAGES.loading}</p>;
@@ -72,6 +72,7 @@ const Dashboard = () => {
         <Table>
           <thead>
             <tr>
+              <th>{TABLE_HEADERS.dashboard.customerId}</th>
               <th>{TABLE_HEADERS.dashboard.customerName}</th>
               <th>{TABLE_HEADERS.dashboard.viewRewards}</th>
             </tr>
@@ -79,6 +80,7 @@ const Dashboard = () => {
           <tbody>
             {paginatedCustomers.map((customer) => (
               <tr key={customer.customerId}>
+                <td>{customer.customerId}</td>
                 <td>{customer.customerName}</td>
                 <td>
                   <ViewButton

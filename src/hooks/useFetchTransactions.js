@@ -3,10 +3,11 @@ import { fetchTransactions } from './api';
 
 const useFetchTransactions = () => {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const getTransactions = useCallback(async () => {
+    setLoading(true);
     try {
       const result = await fetchTransactions();
       setData(result);

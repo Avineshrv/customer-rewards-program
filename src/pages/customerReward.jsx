@@ -9,8 +9,10 @@ import {
   DROPDOWN_OPTIONS,
   MESSAGES,
   BUTTON_TEXT,
+  TRANSACTION_PER_PAGE,
 } from '../utils/constants';
 import { PageContainer, FilterLabel, FilterSelect } from '../styles';
+import { isInLastThreeMonths } from '../utils/helper';
 import styled from 'styled-components';
 
 const BackButton = styled.button`
@@ -54,6 +56,28 @@ const CustomerRewards = () => {
 
   const monthOptions = DROPDOWN_OPTIONS.months;
   const yearOptions = DROPDOWN_OPTIONS.years;
+
+  const filteredTransactions = useMemo(() => {
+    return customerTransactions.filter((txn) => {
+      const txnDate = new Date(txn.date);
+      let monthMatch = false;
+      if (selectedMonth === 'last3') {
+        monthMatch = isInLastThreeMonths(txnDate);
+      } else {
+        monthMatch =
+          txnDate.toLocaleString('default', { month: 'long' }) ===
+          selectedMonth;
+      }
+      const yearMatch = selectedYear
+        ? txnDate.getFullYear().toString() === selectedYear
+        : true;
+      return monthMatch && yearMatch;
+    });
+  }, [customerTransactions, selectedMonth, selectedYear]);
+
+  const totalPages = Math.ceil(
+    filteredTransactions.length / TRANSACTION_PER_PAGE
+  );
 
   if (loading) return <p>{MESSAGES.loading}</p>;
   if (error)
@@ -119,11 +143,13 @@ const CustomerRewards = () => {
         currentPage={currentPage}
       />
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={3}
-        onPageChange={setCurrentPage}
-      />
+      {filteredTransactions.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
+      )}
     </PageContainer>
   );
 };

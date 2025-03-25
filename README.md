@@ -7,12 +7,13 @@ A React.js application that calculates customer reward points based on their tra
 
 This application:
 
-- Fetches transactions via a simulated API
+- Fetches transactions from the Dummy Transaction JSON
+- Display Customer Dashboard with list of Customers
 - Displays customer reward points per month
 - Allows filtering transactions by customer & month
 - Implements pagination for better UX
 - Uses styled-components for UI styling
-- Includes unit tests for calculations, API, and UI components
+- Includes unit tests for calculations
 
 ---
 
@@ -46,6 +47,12 @@ npm install
 
 ```sh
 npm run dev
+```
+
+### **4. Run the Test Case**
+
+```sh
+npm test
 ```
 
 ---

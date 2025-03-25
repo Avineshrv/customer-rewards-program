@@ -39,6 +39,7 @@ export const PAGINATION_TEXT = {
 
 export const TABLE_HEADERS = {
   dashboard: {
+    customerId: 'Customer ID',
     customerName: 'Customer Name',
     viewRewards: 'View Rewards',
   },
@@ -60,3 +61,6 @@ export const BUTTON_TEXT = {
   back: 'Customer Rewards Dashboard',
   view: 'View',
 };
+
+export const TRANSACTION_PER_PAGE = 5;
+export const CUSTOMER_PER_PAGE = 5;

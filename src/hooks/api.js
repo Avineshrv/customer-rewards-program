@@ -1,12 +1,4 @@
-import pino from 'pino';
-
-const logger = pino({
-  browser: {
-    serialize: true,
-    asObject: true,
-  },
-  level: 'info',
-});
+import logger from '../logger';
 
 export const fetchTransactions = async () => {
   logger.info('Starting fetchTransactions API call');

@@ -1,8 +1,13 @@
 import React, { useMemo } from 'react';
 import { Table, TableWrapper } from '../styles';
 import PropTypes from 'prop-types';
-import { MESSAGES, TABLE_HEADERS } from '../utils/constants';
+import {
+  MESSAGES,
+  TABLE_HEADERS,
+  TRANSACTION_PER_PAGE,
+} from '../utils/constants';
 import { calculateRewards } from '../utils/calculations';
+import { isInLastThreeMonths } from '../utils/helper';
 
 const TransactionTable = ({
   transactions,
@@ -10,13 +15,6 @@ const TransactionTable = ({
   selectedYear,
   currentPage,
 }) => {
-  const isInLastThreeMonths = (date) => {
-    const now = new Date();
-    const threeMonthsAgo = new Date();
-    threeMonthsAgo.setMonth(now.getMonth() - 3);
-    return date >= threeMonthsAgo && date <= now;
-  };
-
   const filteredTransactions = useMemo(() => {
     return transactions.filter((txn) => {
       const txnDate = new Date(txn.date);
@@ -41,11 +39,10 @@ const TransactionTable = ({
     );
   }, [filteredTransactions]);
 
-  const transactionsPerPage = 5;
   const paginatedTransactions = useMemo(() => {
     return sortedTransactions.slice(
-      (currentPage - 1) * transactionsPerPage,
-      currentPage * transactionsPerPage
+      (currentPage - 1) * TRANSACTION_PER_PAGE,
+      currentPage * TRANSACTION_PER_PAGE
     );
   }, [sortedTransactions, currentPage]);
 
