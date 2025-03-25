@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Table, TableWrapper } from '../styles';
 import PropTypes from 'prop-types';
-import { MESSAGES, TABLE_HEADERS } from '../constants';
+import { MESSAGES, TABLE_HEADERS } from '../utils/constants';
 import { calculateRewards } from '../utils/calculations';
 
 const TransactionTable = ({

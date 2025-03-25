@@ -39,7 +39,7 @@ export const PAGINATION_TEXT = {
 
 export const TABLE_HEADERS = {
   dashboard: {
-    customerId: 'Customer ID',
+    customerName: 'Customer Name',
     viewRewards: 'View Rewards',
   },
   transaction: {

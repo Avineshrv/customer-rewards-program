@@ -3,7 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import useFetchTransactions from '../hooks/useFetchTransactions';
 import { Table, PageContainer, TableWrapper } from '../styles';
 import Pagination from '../components/tablePagination';
-import { BUTTON_TEXT, HEADINGS, MESSAGES, TABLE_HEADERS } from '../constants';
+import {
+  BUTTON_TEXT,
+  HEADINGS,
+  MESSAGES,
+  TABLE_HEADERS,
+} from '../utils/constants';
 import styled from 'styled-components';
 
 const ViewButton = styled.button`
@@ -33,7 +38,16 @@ const Dashboard = () => {
   const customersPerPage = 5;
 
   const uniqueCustomers = useMemo(() => {
-    return [...new Set(data.map((txn) => txn.customerId))];
+    const customerMap = {};
+    data.forEach((txn) => {
+      if (!customerMap[txn.customerId]) {
+        customerMap[txn.customerId] = {
+          customerId: txn.customerId,
+          customerName: txn.customerName,
+        };
+      }
+    });
+    return Object.values(customerMap);
   }, [data]);
 
   const totalPages = Math.ceil(uniqueCustomers.length / customersPerPage);
@@ -58,17 +72,17 @@ const Dashboard = () => {
         <Table>
           <thead>
             <tr>
-              <th>{TABLE_HEADERS.dashboard.customerId}</th>
+              <th>{TABLE_HEADERS.dashboard.customerName}</th>
               <th>{TABLE_HEADERS.dashboard.viewRewards}</th>
             </tr>
           </thead>
           <tbody>
-            {paginatedCustomers.map((customerId) => (
-              <tr key={customerId}>
-                <td>{customerId}</td>
+            {paginatedCustomers.map((customer) => (
+              <tr key={customer.customerId}>
+                <td>{customer.customerName}</td>
                 <td>
                   <ViewButton
-                    onClick={() => navigate(`/rewards/${customerId}`)}
+                    onClick={() => navigate(`/rewards/${customer.customerId}`)}
                   >
                     {BUTTON_TEXT.view}
                   </ViewButton>

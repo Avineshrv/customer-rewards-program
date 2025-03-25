@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { calculateRewards } from '../utils/calculations';
 import { Table, TableWrapper } from '../styles';
-import { TABLE_HEADERS } from '../constants';
+import { TABLE_HEADERS } from '../utils/constants';
 
 const RewardsTable = ({ transactions }) => {
   const rewardsData = useMemo(() => {

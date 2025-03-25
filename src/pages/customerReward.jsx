@@ -9,7 +9,7 @@ import {
   DROPDOWN_OPTIONS,
   MESSAGES,
   BUTTON_TEXT,
-} from '../constants';
+} from '../utils/constants';
 import { PageContainer, FilterLabel, FilterSelect } from '../styles';
 import styled from 'styled-components';
 
@@ -47,6 +47,11 @@ const CustomerRewards = () => {
     return data.filter((txn) => txn.customerId.toString() === customerId);
   }, [data, customerId]);
 
+  const customerName =
+    customerTransactions.length > 0
+      ? customerTransactions[0].customerName
+      : `Customer ${customerId}`;
+
   const monthOptions = DROPDOWN_OPTIONS.months;
   const yearOptions = DROPDOWN_OPTIONS.years;
 
@@ -64,14 +69,14 @@ const CustomerRewards = () => {
         &#11164;&#11164; {BUTTON_TEXT.back}
       </BackButton>
       <h2>
-        Customer {customerId} {HEADINGS.customerRewards}
+        {customerName} {HEADINGS.customerRewards}
       </h2>
       <RewardsTable transactions={customerTransactions} />
 
       <h3>
-        Customer {customerId} {HEADINGS.filterByMonthYear}
+        {customerName} {HEADINGS.filterByMonthYear}
       </h3>
-      <div className='filters'>
+      <div className="filters">
         <FilterLabel>
           Month:{' '}
           <FilterSelect

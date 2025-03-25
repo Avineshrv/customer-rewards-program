@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { PAGINATION_TEXT } from '../constants';
+import { PAGINATION_TEXT } from '../utils/constants';
 
 const PaginationContainer = styled.div`
   display: flex;
