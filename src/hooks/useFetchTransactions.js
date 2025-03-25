@@ -12,7 +12,7 @@ const useFetchTransactions = () => {
       const result = await fetchTransactions();
       setData(result);
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'Failed to fetch');
     } finally {
       setLoading(false);
     }
